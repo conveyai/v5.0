@@ -31,7 +31,7 @@ const Login = () => {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <img 
-            src="/logo.png" 
+            src="./public/images/logo.png" 
             alt="ConveyAI Logo" 
             className="mx-auto h-16 w-auto"
           />

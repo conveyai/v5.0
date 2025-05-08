@@ -19,11 +19,9 @@ import TodoLists from './pages/TodoLists';
 import ArchivedMatters from './pages/ArchivedMatters';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
-import Register from './pages/Register';  // Add this import
+import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
-
-// Auth component
 import PrivateRoute from './components/auth/PrivateRoute';
 
 const App = () => {
