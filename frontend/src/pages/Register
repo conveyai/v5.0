@@ -1,0 +1,99 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import RegisterUser from '../components/auth/RegisterUser';
+import RegisterFirm from '../components/auth/RegisterFirm';
+import { toast } from 'react-toastify';
+
+const Register = () => {
+  const navigate = useNavigate();
+  const { registerTenant, error } = useAuth();
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    firmName: '',
+    firmDomain: ''
+  });
+
+  const handleNext = () => {
+    // Validate password match
+    if (formData.password !== formData.confirmPassword) {
+      toast.error('Passwords do not match');
+      return;
+    }
+    
+    // Validate password strength
+    if (formData.password.length < 8) {
+      toast.error('Password must be at least 8 characters long');
+      return;
+    }
+    
+    setStep(2);
+  };
+
+  const handlePrevious = () => {
+    setStep(1);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      await registerTenant({
+        tenantName: formData.firmName,
+        tenantDomain: formData.firmDomain,
+        userName: formData.fullName,
+        email: formData.email,
+        password: formData.password
+      });
+      
+      toast.success('Registration successful! You can now log in.');
+      navigate('/login');
+    } catch (error) {
+      console.error('Registration failed:', error);
+      // Error is already handled in the AuthContext
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      {error && (
+        <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-4 absolute top-4 right-4">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <i className="feather-alert-circle h-5 w-5 text-red-400"></i>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm text-red-700">
+                {error}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {step === 1 ? (
+        <RegisterUser 
+          onNext={handleNext}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      ) : (
+        <RegisterFirm
+          onPrevious={handlePrevious}
+          onSubmit={handleSubmit}
+          formData={formData}
+          setFormData={setFormData}
+          loading={loading}
+        />
+      )}
+    </div>
+  );
+};
+
+export default Register;

@@ -19,6 +19,7 @@ import TodoLists from './pages/TodoLists';
 import ArchivedMatters from './pages/ArchivedMatters';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
+import Register from './pages/Register';  // Add this import
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 
@@ -32,6 +33,7 @@ const App = () => {
         <Routes>
           {/* Public routes */}
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />  {/* Add this route */}
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           

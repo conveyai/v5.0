@@ -301,3 +301,82 @@ exports.changePassword = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+/**
+ * Register new tenant and admin user
+ */
+exports.register = async (req, res) => {
+  try {
+    const { 
+      tenantName, 
+      tenantDomain, 
+      userName, 
+      email, 
+      password 
+    } = req.body;
+    
+    // Validate required fields
+    if (!tenantName || !tenantDomain || !userName || !email || !password) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+    
+    // Check if tenant domain already exists
+    const existingTenant = await prisma.tenant.findUnique({
+      where: { domain: tenantDomain }
+    });
+    
+    if (existingTenant) {
+      return res.status(409).json({ error: 'This domain is already registered' });
+    }
+    
+    // Check if email already exists
+    const existingUser = await prisma.conveyancer.findFirst({
+      where: { email }
+    });
+    
+    if (existingUser) {
+      return res.status(409).json({ error: 'This email is already registered' });
+    }
+    
+    // Create new tenant
+    const tenant = await prisma.tenant.create({
+      data: {
+        name: tenantName,
+        domain: tenantDomain,
+        logo_path: null,
+        primaryColor: '#4F46E5',
+        active: true,
+        updated_at: new Date()
+      }
+    });
+    
+    // Hash the password
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(password, saltRounds);
+    
+    // Create admin user for the tenant
+    const user = await prisma.conveyancer.create({
+      data: {
+        tenantId: tenant.id,
+        name: userName,
+        email,
+        password_hash: passwordHash,
+        role: 'ADMIN',
+        active: true,
+        updated_at: new Date()
+      }
+    });
+    
+    res.status(201).json({ 
+      message: 'Registration successful',
+      tenant: {
+        id: tenant.id,
+        name: tenant.name,
+        domain: tenant.domain
+      }
+    });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
