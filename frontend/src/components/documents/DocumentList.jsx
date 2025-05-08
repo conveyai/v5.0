@@ -1,4 +1,3 @@
-// src/components/documents/DocumentList.jsx
 import React, { useState, useEffect } from 'react';
 import { useMatterDocuments, useMatterDocumentFolders } from '../../hooks/useDocuments';
 import DocumentUpload from './DocumentUpload';
@@ -9,10 +8,10 @@ import {
   FolderIcon, 
   DocumentIcon, 
   ChevronUpIcon,
-  DownloadIcon,
+  ArrowDownTrayIcon,
   PencilIcon,
   TrashIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 
 const DocumentList = ({ matterId }) => {
   const [currentFolderId, setCurrentFolderId] = useState(null);
@@ -167,7 +166,7 @@ const DocumentList = ({ matterId }) => {
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex justify-end space-x-2">
                       <button className="text-gray-400 hover:text-blue-500">
-                        <DownloadIcon className="h-5 w-5" />
+                        <ArrowDownTrayIcon className="h-5 w-5" />
                       </button>
                       <button className="text-gray-400 hover:text-gray-500">
                         <PencilIcon className="h-5 w-5" />
