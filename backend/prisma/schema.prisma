@@ -30,6 +30,8 @@ model Tenant {
   titleSearches  TitleSearch[]
   todos          Todo[]
   matterAuditLogs MatterAuditLog[]
+  precedentFolders PrecedentFolder[]
+  precedents      Precedent[]
 }
 
 // User model (conveyancers)
@@ -53,6 +55,8 @@ model Conveyancer {
   completedTodos  Todo[]           @relation("TodoCompleter")
   uploadedDocuments Document[]
   matterAuditLogs MatterAuditLog[]
+  createdPrecedentFolders PrecedentFolder[] @relation("FolderCreator")
+  uploadedPrecedents      Precedent[]       @relation("PrecedentUploader")
   
   @@unique([email, tenantId])
 }
@@ -280,7 +284,7 @@ model PrecedentFolder {
   parentFolder   PrecedentFolder? @relation("PrecedentFolderHierarchy", fields: [parent_folder_id], references: [id])
   childFolders   PrecedentFolder[] @relation("PrecedentFolderHierarchy")
   precedents     Precedent[]
-  creator        Conveyancer     @relation(fields: [created_by], references: [id])
+  creator        Conveyancer     @relation("FolderCreator", fields: [created_by], references: [id])
   
   @@index([tenantId])
   @@index([parent_folder_id])
@@ -306,7 +310,7 @@ model Precedent {
   // Relationships
   tenant         Tenant          @relation(fields: [tenantId], references: [id])
   folder         PrecedentFolder? @relation(fields: [folder_id], references: [id])
-  uploader       Conveyancer     @relation(fields: [uploaded_by], references: [id])
+  uploader       Conveyancer     @relation("PrecedentUploader", fields: [uploaded_by], references: [id])
   
   @@index([tenantId])
   @@index([folder_id])
