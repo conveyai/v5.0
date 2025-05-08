@@ -18,7 +18,7 @@
     "lint": "npm run lint --workspace=backend && npm run lint --workspace=frontend",
     "setup:db": "npm run prisma:migrate && npm run seed",
     "prisma:migrate": "cd backend && npx prisma migrate dev",
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "cd backend && npx prisma db seed"
   },
   "keywords": [
     "conveyancing",
