@@ -264,3 +264,50 @@ model MatterAuditLog {
   @@index([matterId])
   @@index([userId])
 }
+
+// Precedent Library model
+model PrecedentFolder {
+  id               String    @id @default(uuid())
+  tenantId         String
+  name             String
+  parent_folder_id String?
+  created_by       String
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  
+  // Relationships
+  tenant         Tenant          @relation(fields: [tenantId], references: [id])
+  parentFolder   PrecedentFolder? @relation("PrecedentFolderHierarchy", fields: [parent_folder_id], references: [id])
+  childFolders   PrecedentFolder[] @relation("PrecedentFolderHierarchy")
+  precedents     Precedent[]
+  creator        Conveyancer     @relation(fields: [created_by], references: [id])
+  
+  @@index([tenantId])
+  @@index([parent_folder_id])
+}
+
+model Precedent {
+  id               String    @id @default(uuid())
+  tenantId         String
+  folder_id        String?
+  uploaded_by      String
+  name             String
+  description      String?
+  category         String    // GENERAL, CONTRACT, IDENTIFICATION, etc.
+  file_path        String
+  file_name        String
+  file_type        String?
+  file_extension   String?
+  file_size        Int?
+  content          String?    // Optional content for text-based precedents
+  uploaded_at      DateTime
+  updated_at       DateTime  @updatedAt
+  
+  // Relationships
+  tenant         Tenant          @relation(fields: [tenantId], references: [id])
+  folder         PrecedentFolder? @relation(fields: [folder_id], references: [id])
+  uploader       Conveyancer     @relation(fields: [uploaded_by], references: [id])
+  
+  @@index([tenantId])
+  @@index([folder_id])
+}

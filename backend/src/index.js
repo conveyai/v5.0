@@ -22,6 +22,8 @@ const clientRoutes = require('./api/clients');
 const documentRoutes = require('./api/documents');
 const titleSearchRoutes = require('./api/title-searches');
 const todoRoutes = require('./api/todos');
+const precedentRoutes = require('./api/precedents');
+
 
 // Initialize Express app
 const app = express();
@@ -54,6 +56,7 @@ app.use('/api/clients', authenticateUser, clientRoutes);
 app.use('/api/documents', authenticateUser, documentRoutes);
 app.use('/api/title-searches', authenticateUser, titleSearchRoutes);
 app.use('/api/todos', authenticateUser, todoRoutes);
+app.use('/api/precedents', authenticateUser, precedentRoutes);
 
 // Error handling middleware
 app.use(errorHandler);

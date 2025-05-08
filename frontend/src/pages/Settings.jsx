@@ -3,9 +3,12 @@ import { useAuth } from '../contexts/AuthContext';
 import Loader from '../components/common/Loader';
 import { toast } from 'react-toastify';
 import api from '../utils/api';
+import PrecedentLibrary from '../components/precedents/PrecedentLibrary';
+
 
 const Settings = () => {
   const { tenant, user, loading } = useAuth();
+  const [activeTab, setActiveTab] = useState('general');
   const [generalForm, setGeneralForm] = useState({
     companyName: tenant?.name || '',
     logoUrl: tenant?.logo_path || '',
@@ -203,6 +206,19 @@ const Settings = () => {
                 {savingPassword ? 'Changing...' : 'Change Password'}
               </button>
             </div>
+
+            <div className="mt-8 bg-white rounded-lg shadow overflow-hidden">
+    <div className="p-4 border-b">
+      <h2 className="text-lg font-medium">Precedent Library</h2>
+      <p className="text-sm text-gray-500 mt-1">
+        Manage document templates that can be used when creating new documents in matters.
+      </p>
+    </div>
+    <div className="p-4">
+      <PrecedentLibrary />
+    </div>
+  </div>
+  
           </form>
         </div>
       </div>
