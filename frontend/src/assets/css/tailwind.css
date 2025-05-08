@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+.feather {
+  width: 1em;
+  height: 1em;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* Feather icon classes */
+/* These classes mimic Feather icons for display without JS */
+.feather-home::before {
+  content: '🏠';
+}
+
+.feather-file-text::before {
+  content: '📄';
+}
+
+.feather-users::before {
+  content: '👥';
+}
+
+.feather-clipboard::before {
+  content: '📋';
+}
+
+.feather-archive::before {
+  content: '📦';
+}
+
+.feather-settings::before {
+  content: '⚙️';
+}
+
+.feather-log-out::before {
+  content: '🚪';
+}
+
+.feather-menu::before {
+  content: '☰';
+}
+
+.feather-bell::before {
+  content: '🔔';
+}
+
+.feather-user::before {
+  content: '👤';
+}
+
+.feather-x::before {
+  content: '❌';
+}
+
+.feather-alert-circle::before {
+  content: '⚠️';
+}
+
+/* Use actual Feather icons in production by including the Feather JS library */

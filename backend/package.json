@@ -1,0 +1,48 @@
+{
+  "name": "conveyai-backend",
+  "version": "1.0.0",
+  "description": "Backend API for ConveyAI conveyancing management system",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest",
+    "lint": "eslint src/",
+    "seed": "node prisma/seed.js"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "keywords": [
+    "conveyancing",
+    "property",
+    "real estate",
+    "legal"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^5.0.0",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.7.1",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^9.0.0",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "jest": "^29.6.1",
+    "nodemon": "^3.0.1",
+    "prisma": "^5.0.0",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

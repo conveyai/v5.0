@@ -1,0 +1,44 @@
+{
+  "name": "conveyai",
+  "version": "1.0.0",
+  "description": "ConveyAI - Real-time conveyancing management system",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "prepare": "node patch-buffer.js",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "npm run start --workspace=backend",
+    "start:frontend": "npm run start --workspace=frontend",
+    "dev": "concurrently \"npm run dev --workspace=backend\" \"npm run start --workspace=frontend\"",
+    "build": "npm run build --workspace=frontend",
+    "test": "npm run test --workspace=backend && npm run test --workspace=frontend",
+    "lint": "npm run lint --workspace=backend && npm run lint --workspace=frontend",
+    "setup:db": "npm run prisma:migrate && npm run seed",
+    "prisma:migrate": "cd backend && npx prisma migrate dev",
+    "seed": "cd backend && npx prisma db seed"
+  },
+  "keywords": [
+    "conveyancing",
+    "property",
+    "real estate",
+    "legal"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-jest": "^29.7.0",
+    "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "@heroicons/react": "^1.0.6",
+    "chokidar": "3.5.1",
+    "jsonwebtoken": "^9.0.0",
+    "react-scripts": "^3.0.1"
+  }
+}
