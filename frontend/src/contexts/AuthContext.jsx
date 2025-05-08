@@ -43,6 +43,24 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
   
+  // Add registration function
+  const registerTenant = async (registrationData) => {
+    try {
+      setError(null);
+      
+      const response = await api.post('/api/auth/register', registrationData);
+      
+      toast.success('Registration successful! You can now log in.');
+      return response.data;
+    } catch (error) {
+      console.error('Registration failed:', error);
+      const errorMessage = error.response?.data?.error || 'Registration failed';
+      setError(errorMessage);
+      toast.error(errorMessage);
+      throw error;
+    }
+  };
+  
   const login = async (email, password, tenantDomain) => {
     try {
       setError(null);
@@ -135,7 +153,8 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    registerTenant  // Add this function
   };
   
   return (
