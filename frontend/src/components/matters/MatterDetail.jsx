@@ -10,7 +10,7 @@ import TodoList from '../todos/TodoList';
 import ContactDetail from '../contacts/ContactDetail';
 import ContractCreate from '../contracts/ContractCreate';
 import Modal from '../common/Modal';
-
+import { toast } from 'react-toastify';
 
 const MatterDetail = () => {
   const { id } = useParams();
@@ -20,19 +20,17 @@ const MatterDetail = () => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [contactType, setContactType] = useState('');
   
-  if (loading) return <Loader />;
-  if (error) return <div className="text-red-500">Error loading matter: {error.message}</div>;
   if (!matter) return <div>Matter not found</div>;
   
   const handleShowContact = (type) => {
     if (type === 'vendor' && matter.seller) {
       setSelectedContact(matter.seller);
       setContactType('Vendor');
-      setShowContactModal(true);
+      setContactModalOpen(true);
     } else if (type === 'purchaser' && matter.buyer) {
       setSelectedContact(matter.buyer);
       setContactType('Purchaser');
-      setShowContactModal(true);
+      setContactModalOpen(true);
     } else {
       // Handle case when contact doesn't exist
       toast.warning(`No ${type === 'vendor' ? 'vendor' : 'purchaser'} associated with this matter.`);
