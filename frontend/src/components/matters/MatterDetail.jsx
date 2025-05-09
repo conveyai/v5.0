@@ -19,6 +19,8 @@ const MatterDetail = () => {
   const [showContractModal, setShowContractModal] = useState(false);
   const [selectedContact, setSelectedContact] = useState(null);
   const [contactType, setContactType] = useState('');
+  const [showContactModal, setShowContactModal] = useState(false);
+
   
   if (!matter) return <div>Matter not found</div>;
   
@@ -26,11 +28,11 @@ const MatterDetail = () => {
     if (type === 'vendor' && matter.seller) {
       setSelectedContact(matter.seller);
       setContactType('Vendor');
-      setContactModalOpen(true);
+    setShowContactModal(true);
     } else if (type === 'purchaser' && matter.buyer) {
       setSelectedContact(matter.buyer);
       setContactType('Purchaser');
-      setContactModalOpen(true);
+    setShowContactModal(true);
     } else {
       // Handle case when contact doesn't exist
       toast.warning(`No ${type === 'vendor' ? 'vendor' : 'purchaser'} associated with this matter.`);
