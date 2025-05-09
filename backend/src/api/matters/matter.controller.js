@@ -138,6 +138,7 @@ exports.createMatter = async (req, res) => {
       data: {
         tenantId,
         conveyancerId,
+        matter_number: `M-${Date.now().toString().slice(-6)}`,
         matter_type,
         property_address,
         property_suburb,

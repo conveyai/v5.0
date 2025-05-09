@@ -1,3 +1,4 @@
+// backend/src/api/clients/client.controller.js
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -85,7 +86,8 @@ exports.createClient = async (req, res) => {
       email,
       phone,
       address,
-      client_type,
+      client_type,     // Accept this for backward compatibility
+      clientType,      // Also accept this from updated frontend
       identity_verified,
       identification_type,
       identification_number,
@@ -106,6 +108,9 @@ exports.createClient = async (req, res) => {
       }
     }
     
+    // Determine client type - use the provided value or default to 'INDIVIDUAL'
+    const clientTypeValue = clientType || client_type || 'INDIVIDUAL';
+    
     // Create client
     const newClient = await prisma.client.create({
       data: {
@@ -114,7 +119,8 @@ exports.createClient = async (req, res) => {
         email,
         phone,
         address,
-        client_type: client_type || 'INDIVIDUAL',
+        client_type: clientTypeValue,  // Set the snake_case field
+        clientType: clientTypeValue,   // Set the camelCase field too
         identity_verified: identity_verified || false,
         identification_type,
         identification_number,
@@ -141,7 +147,8 @@ exports.updateClient = async (req, res) => {
       email,
       phone,
       address,
-      client_type,
+      client_type,     // Accept this for backward compatibility
+      clientType,      // Also accept this from updated frontend
       identity_verified,
       identification_type,
       identification_number,
@@ -177,6 +184,9 @@ exports.updateClient = async (req, res) => {
       }
     }
     
+    // Determine client type - use the provided value or keep the existing one
+    const clientTypeValue = clientType || client_type || existingClient.client_type;
+    
     // Update client
     const updatedClient = await prisma.client.update({
       where: { id },
@@ -185,7 +195,8 @@ exports.updateClient = async (req, res) => {
         email,
         phone,
         address,
-        client_type,
+        client_type: clientTypeValue,  // Set the snake_case field
+        clientType: clientTypeValue,   // Set the camelCase field too
         identity_verified,
         identification_type,
         identification_number,

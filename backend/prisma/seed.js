@@ -52,7 +52,7 @@ async function main() {
       email: 'jane@example.com',
       phone: '0412 345 678',
       address: '1 Example St, Sydney NSW 2000',
-      client_type: 'INDIVIDUAL',
+      contact_type: 'INDIVIDUAL',
       identity_verified: true,
       identification_type: 'DRIVERS_LICENSE',
       identification_number: '123456789',
@@ -67,7 +67,7 @@ async function main() {
       email: 'robert@example.com',
       phone: '0423 456 789',
       address: '2 Sample Rd, Melbourne VIC 3000',
-      client_type: 'INDIVIDUAL'
+      contact_type: 'INDIVIDUAL'
     }
   });
   
