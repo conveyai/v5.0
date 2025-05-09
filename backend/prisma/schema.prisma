@@ -103,6 +103,7 @@ model Client {
 model Matter {
   id               String    @id @default(uuid())
   tenantId         String
+  matter_number    String    // Add this new field for the matter number
   conveyancerId    String
   matter_type      String    // SALE, PURCHASE, TRANSFER
   property_address String
