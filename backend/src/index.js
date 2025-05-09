@@ -8,6 +8,7 @@ const rateLimit = require('express-rate-limit');
 const { PrismaClient } = require('@prisma/client');
 const tenantRoutes = require('./api/tenants');
 const uploadRoutes = require('./api/upload');
+const contractRoutes = require('./api/contracts');
 
 
 // Load environment variables
@@ -68,6 +69,7 @@ app.use('/api/precedents', authenticateUser, precedentRoutes);
 app.use('/api/tenants', authenticateUser, tenantRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
+app.use('/api/contracts', authenticateUser, contractRoutes);
 
 
 // Error handling middleware
