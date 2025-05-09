@@ -82,8 +82,7 @@ model Client {
   email                 String?
   phone                 String?
   address               String?
-  client_type           String    @default("INDIVIDUAL") // INDIVIDUAL, COMPANY, TRUST
-  identity_verified     Boolean   @default(false)
+contact_type          String    @default("INDIVIDUAL") // INDIVIDUAL, COMPANY, TRUST, CONVEYANCER, REAL_ESTATE_AGENT  identity_verified     Boolean   @default(false)
   identification_type   String?
   identification_number String?
   verified_at           DateTime?

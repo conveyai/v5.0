@@ -11,7 +11,7 @@ const NewContactForm = () => {
     email: '',
     phone: '',
     address: '',
-    client_type: 'INDIVIDUAL',
+    contact_type: 'INDIVIDUAL',
     notes: ''
   });
   
@@ -84,17 +84,19 @@ const NewContactForm = () => {
         
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Client Type
+            Contact Type
           </label>
           <select
-            name="client_type"
-            value={formData.client_type}
+            name="contact_type"
+            value={formData.contact_type}
             onChange={handleChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="INDIVIDUAL">Individual</option>
             <option value="COMPANY">Company</option>
             <option value="TRUST">Trust</option>
+            <option value="CONVEYANCER">Conveyancer</option>
+            <option value="REAL_ESTATE_AGENT">Real Estate Agent</option>
           </select>
         </div>
         
