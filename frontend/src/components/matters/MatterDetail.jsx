@@ -31,9 +31,9 @@ const MatterDetail = () => {
       <div className="p-4 border-b">
         <div className="flex justify-between items-start">
           <h2 className="text-xl font-medium">
-            {matter.matter_type === 'Sale' 
-              ? `${matter.seller?.name} sale of` 
-              : `${matter.buyer?.name} purchase of`} {matter.property_address}
+            {matter.matter_number}: {matter.matter_type === 'Sale' 
+          ? `${matter.seller?.name} sale of` 
+          : `${matter.buyer?.name} purchase of`} {matter.property_address}
           </h2>
           
           <div className="flex space-x-2">

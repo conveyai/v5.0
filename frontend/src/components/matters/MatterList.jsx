@@ -45,6 +45,9 @@ const MatterList = () => {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+      Matter Number
+    </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Contact Name
               </th>
@@ -69,6 +72,9 @@ const MatterList = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredMatters.map(matter => (
               <tr key={matter.id}>
+              <td className="px-6 py-4 whitespace-nowrap">
+        {matter.matter_number}
+      </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {matter.matter_type === 'Sale' ? matter.seller?.name : matter.buyer?.name}
                 </td>
