@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const rateLimit = require('express-rate-limit');
 const { PrismaClient } = require('@prisma/client');
 const tenantRoutes = require('./api/tenants');
+const uploadRoutes = require('./api/upload');
 
 
 // Load environment variables
@@ -65,6 +66,8 @@ app.use('/api/title-searches', authenticateUser, titleSearchRoutes);
 app.use('/api/todos', authenticateUser, todoRoutes);
 app.use('/api/precedents', authenticateUser, precedentRoutes);
 app.use('/api/tenants', authenticateUser, tenantRoutes);
+app.use('/api/upload', uploadRoutes);
+app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
 
 
 // Error handling middleware

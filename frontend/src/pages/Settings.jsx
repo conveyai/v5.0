@@ -4,6 +4,7 @@ import Loader from '../components/common/Loader';
 import { toast } from 'react-toastify';
 import api from '../utils/api';
 import PrecedentLibrary from '../components/precedents/PrecedentLibrary';
+import FileUpload from '../components/common/FileUpload';
 
 
 const Settings = () => {
@@ -37,7 +38,8 @@ const Settings = () => {
       const response = await api.put(`/api/tenants/${tenant.id}/settings`, {
         name: generalForm.companyName,
         logo_path: generalForm.logoUrl,
-        primaryColor: generalForm.primaryColor
+        primaryColor: generalForm.primaryColor,
+        backgroundImage: generalForm.backgroundImage
       });
       
       toast.success('Settings updated successfully!');
@@ -123,6 +125,32 @@ const Settings = () => {
             </div>
             
             <div>
+  <label className="block text-sm font-medium text-gray-700">
+    Background Image
+  </label>
+  <input
+    type="text"
+    value={generalForm.backgroundImage}
+    onChange={(e) => setGeneralForm({ ...generalForm, backgroundImage: e.target.value })}
+    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+    placeholder="https://example.com/background.jpg"
+  />
+  <p className="mt-1 text-xs text-gray-500">
+    Enter a URL above or upload an image below
+  </p>
+  
+  <div className="mt-2">
+    <FileUpload 
+      label="Upload Background Image" 
+      fileType="image/*"
+      onUploadComplete={(fileUrl) => {
+        setGeneralForm({ ...generalForm, backgroundImage: fileUrl });
+      }}
+    />
+  </div>
+</div>
+
+            <div>
               <label className="block text-sm font-medium text-gray-700">
                 Primary Color
               </label>
@@ -141,6 +169,18 @@ const Settings = () => {
                 />
               </div>
             </div>
+            
+            {generalForm.backgroundImage && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Background Preview
+                </label>
+                <div 
+                  className="h-40 w-full bg-cover bg-center rounded-md border border-gray-200"
+                  style={{ backgroundImage: `url(${generalForm.backgroundImage})` }}
+                ></div>
+              </div>
+            )}
             
             <div className="flex justify-end">
               <button

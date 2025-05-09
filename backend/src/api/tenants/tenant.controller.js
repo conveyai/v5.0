@@ -19,7 +19,8 @@ exports.updateTenantSettings = async (req, res) => {
       data: {
         name,
         logo_path,
-        primaryColor
+        primaryColor,
+        backgroundImage
       }
     });
     

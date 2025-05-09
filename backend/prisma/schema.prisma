@@ -16,6 +16,7 @@ model Tenant {
   name         String
   domain       String         @unique
   logo_path    String?
+  backgroundImage String?     
   primaryColor String         @default("#4F46E5")
   active       Boolean        @default(true)
   created_at   DateTime       @default(now())
